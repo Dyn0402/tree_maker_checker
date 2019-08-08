@@ -194,6 +194,8 @@ Int_t MyAnalysisMaker::Make()
     VertexZPos  =  muEvent-> primaryVertexPosition().z();
     VpdVzPos    =  muEvent-> vpdVz();
    
+    vz_hist->Fill(VpdVzPos, VertexZPos);
+
     // Filter out events with disagreement between vpd and vertex reconstruction.
     if(energy >= 39 && fabs(VpdVzPos-VertexZPos) > 3) return kStOK; // for 39,62 GeV
     
@@ -270,8 +272,6 @@ Int_t MyAnalysisMaker::Make()
 //    //fill tree
 //    nsmTree->Fill();
 //    protonArr->Delete();
-    
-    vz_hist->Fill(VpdVzPos, VertexZPos);
 
     mEventsProcessed++ ;
     return kStOK ;
@@ -284,8 +284,8 @@ Int_t MyAnalysisMaker::Finish()
     cout<<" Inside Finish and writing histograms..."<<endl;
     cout << endl;
     cout << endl;
-    histogram_output -> cd();
-    vz_hist -> Write();
+//    histogram_output -> cd();
+//    vz_hist -> Write();
     histogram_output -> Write();
     histogram_output ->Close();
     
