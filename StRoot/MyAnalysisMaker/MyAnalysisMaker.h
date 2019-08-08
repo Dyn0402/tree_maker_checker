@@ -57,6 +57,7 @@ private:
     TClonesArray* protonArr;
     nsmEvent* levent;
     TTree* nsmTree;
+    TH2F* vz_hist;
 
     
     UInt_t        mEventsProcessed;                   //  Number of Events read and processed

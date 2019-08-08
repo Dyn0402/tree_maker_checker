@@ -56,13 +56,15 @@ Int_t MyAnalysisMaker::Init()
     //-----------------------------------------------------------------------------------------
     histogram_output = new TFile(OutputFileName,"RECREATE") ;  //
     
-    nsmTree = new TTree("nsmTree","nsmTree");//                                                                                                           
+    vz_hist = new TH2F("Vpd z vs vtx z", "Vpd z vs vtx z", 100, -55, 55, 100, -55, 55);
 
-    protonArr = new TClonesArray("nsmTrack", 1000); //                                                                                                  
-    nsmTree->Branch("Proton", &protonArr, 256000, 99);//                                                                                                
-
-    levent = new nsmEvent();//                                                                                                                          
-    nsmTree->Branch("Event", "nsmEvent", &levent, 256000, 99);//   
+//    nsmTree = new TTree("nsmTree","nsmTree");//
+//
+//    protonArr = new TClonesArray("nsmTrack", 1000); //
+//    nsmTree->Branch("Proton", &protonArr, 256000, 99);//
+//
+//    levent = new nsmEvent();//
+//    nsmTree->Branch("Event", "nsmEvent", &levent, 256000, 99);//
     
     VertexZPos = -100.0;
     VpdVzPos   = -100.0;
@@ -263,12 +265,14 @@ Int_t MyAnalysisMaker::Make()
 //    Qx = 0;
 //    Qy = 0;
     
-    levent->SetEventData(muEvent->primaryVertexPosition().x(), muEvent->primaryVertexPosition().y(), muEvent->primaryVertexPosition().z(), muEvent->refMult(), runnumber, refmult2, muEvent->btofTrayMultiplicity());
+//    levent->SetEventData(muEvent->primaryVertexPosition().x(), muEvent->primaryVertexPosition().y(), muEvent->primaryVertexPosition().z(), muEvent->refMult(), runnumber, refmult2, muEvent->btofTrayMultiplicity());
+//
+//    //fill tree
+//    nsmTree->Fill();
+//    protonArr->Delete();
     
-    //fill tree
-    nsmTree->Fill();
-    protonArr->Delete();
- 
+    vz_hist->Fill(VpdVzPos, VertexZPos);
+
     mEventsProcessed++ ;
     return kStOK ;
     
@@ -280,7 +284,8 @@ Int_t MyAnalysisMaker::Finish()
     cout<<" Inside Finish and writing histograms..."<<endl;
     cout << endl;
     cout << endl;
-    
+    histogram_output -> cd();
+    vz_hist -> Write();
     histogram_output -> Write();
     histogram_output ->Close();
     
