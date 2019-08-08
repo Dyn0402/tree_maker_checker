@@ -57,6 +57,7 @@ Int_t MyAnalysisMaker::Init()
     histogram_output = new TFile(OutputFileName,"RECREATE") ;  //
     
     vz_hist = new TH2F("Vpd z vs vtx z", "Vpd z vs vtx z", 100, -55, 55, 100, -55, 55);
+    cut_hist = new TH1F("Cut Hist", "Cut Hist", 4, -0.5, 3.5);
 
 //    nsmTree = new TTree("nsmTree","nsmTree");//
 //
@@ -182,25 +183,33 @@ Int_t MyAnalysisMaker::Make()
     }
 
     if(good == 2) {
+    	cut_hist->Fill(0);
     	return kStOK;
     }
     
     
     if(IsBadEvent(muEvent))  {                                     //Nominal Event cuts and trigger cut
+    	cut_hist->Fill(1);
     	return           kStOK;
     }
     
+    cout << "Good event" << endl;
+
     //----------------------------------------------------
     VertexZPos  =  muEvent-> primaryVertexPosition().z();
     VpdVzPos    =  muEvent-> vpdVz();
    
-    vz_hist->Fill(VpdVzPos, VertexZPos);
+    vz_hist->Fill(VertexZPos, VpdVzPos);
 
     // Filter out events with disagreement between vpd and vertex reconstruction.
-    if(energy >= 39 && fabs(VpdVzPos-VertexZPos) > 3) return kStOK; // for 39,62 GeV
+    if(energy >= 39 && fabs(VpdVzPos-VertexZPos) > 3) {
+    	cut_hist->Fill(2);
+    	return kStOK;
+    } // for 39,62 GeV
     
     //---------------------------------------------------------
     
+    cut_hist->Fill(3);
     
     int nHitsFit, check, nHitsDedx;
     float ratio, dca, eta, pt, nsigmapr, phi, charge;//, Qx, Qy;
