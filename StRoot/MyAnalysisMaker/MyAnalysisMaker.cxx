@@ -267,7 +267,7 @@ Int_t MyAnalysisMaker::Make()
         beta = -999;
         beta = track->btofPidTraits().beta();
         
-        new((*protonArr)[protonp++]) nsmTrack(pt,p,phi,eta,dca,nsigmapr,beta,charge);
+//        new((*protonArr)[protonp++]) nsmTrack(pt,p,phi,eta,dca,nsigmapr,beta,charge);
 
     }//==================track loop ends=========================
 
