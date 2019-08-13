@@ -201,8 +201,6 @@ Int_t MyAnalysisMaker::Make()
     	return           kStOK;
     }
     
-    cout << "Good event" << endl;
-
     //----------------------------------------------------
     VertexZPos  =  muEvent-> primaryVertexPosition().z();
     VpdVzPos    =  muEvent-> vpdVz();
