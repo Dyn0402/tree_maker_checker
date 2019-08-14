@@ -59,6 +59,7 @@ Int_t MyAnalysisMaker::Init()
     vz_hist = new TH2F("Vpd z vs vtx z", "Vpd z vs vtx z", 100, -55, 55, 100, -55, 55);
     event_cut_hist = new TH1F("Event Cut Hist", "Event Cut Hist", 7, -0.5, 6.5);
     track_cut_hist = new TH1F("Track Cut Hist", "Track Cut Hist", 12, -0.5, 11.5);
+    trigger_hist = new TH1F("Trigger Hist", "Trigger Hist", 200, 0, 1000000);
 
 //    nsmTree = new TTree("nsmTree","nsmTree");//
 //

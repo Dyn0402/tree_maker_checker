@@ -60,6 +60,7 @@ private:
     TH2F* vz_hist;
     TH1F* event_cut_hist;
     TH1F* track_cut_hist;
+    TH1F* trigger_hist;
 
     
     UInt_t        mEventsProcessed;                   //  Number of Events read and processed
