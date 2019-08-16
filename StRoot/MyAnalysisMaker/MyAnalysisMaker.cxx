@@ -57,6 +57,7 @@ Int_t MyAnalysisMaker::Init()
     histogram_output = new TFile(OutputFileName,"RECREATE") ;  //
     
     vz_hist = new TH2F("Vpd z vs vtx z", "Vpd z vs vtx z", 100, -55, 55, 100, -55, 55);
+    vpd_hist = new TH2F("Mu_vs_Btof_VPDVz", "BTof vs MuEvent vpdVz", 201, -100, 100, 201, -100, 100);
     event_cut_hist = new TH1F("Event Cut Hist", "Event Cut Hist", 7, -0.5, 6.5);
     track_cut_hist = new TH1F("Track Cut Hist", "Track Cut Hist", 12, -0.5, 11.5);
     trigger_hist = new TH1F("Trigger Hist", "Trigger Hist", 200, 0, 1000000);
@@ -179,6 +180,7 @@ Int_t MyAnalysisMaker::Make()
 {
     StMuEvent* muEvent  =  mMuDstMaker->muDst()->event();
     event_cut_hist->Fill(0);
+    vpd_hist->Fill(mMuDstMaker->muDst()->btofHeader()->vpdVz(), muEvent->vpdVz());
     
     runnumber = muEvent->runId();
 

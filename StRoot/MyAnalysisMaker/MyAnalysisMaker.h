@@ -58,6 +58,7 @@ private:
     nsmEvent* levent;
     TTree* nsmTree;
     TH2F* vz_hist;
+    TH2F* vpd_hist;
     TH1F* event_cut_hist;
     TH1F* track_cut_hist;
     TH1F* trigger_hist;
