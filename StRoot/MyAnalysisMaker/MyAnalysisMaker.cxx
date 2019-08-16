@@ -206,7 +206,8 @@ Int_t MyAnalysisMaker::Make()
     
     //----------------------------------------------------
     VertexZPos  =  muEvent-> primaryVertexPosition().z();
-    VpdVzPos    =  muEvent-> vpdVz();
+    VpdVzPos 	=  mMuDstMaker->muDst()->btofHeader()->vpdVz();
+//    VpdVzPos    =  muEvent-> vpdVz();
    
     vz_hist->Fill(VertexZPos, VpdVzPos);
 
